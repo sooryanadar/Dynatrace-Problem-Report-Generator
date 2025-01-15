@@ -26,7 +26,44 @@ You can install the required packages using pip:
 pip install requests pandas openpyxl tkcalendar
 ```
 
-## Usage
+### Usage
+
+# Option 1 (for window)
+No need of python
+
+## 1. Go to dist directory
+
+## 2. Download the problem_report.exe file
+
+## 3. Double-click and run the file
+
+## 4. Input Data
+In the GUI, you will need to input the following details:
+
+Dynatrace API URL: Enter your Dynatrace environment API URL, for example:
+
+### SaaS
+```bash
+https://<your-environment-id>.live.dynatrace.com/api/v2/problems
+```
+### Managed
+```bash
+https://<your-domain-name>/e/{your-environment-id}/api/v2/problems
+```
+    - From Date and Time: Select the starting date and time to filter the problems.
+    - To Date and Time: Select the ending date and time for the data.
+    - Management Zone: Input the management zone (e.g., Production, Staging).
+    - API Token: Enter your Dynatrace API token.
+
+## 5. Fetch Data
+
+Once you have filled in the necessary fields, click the Fetch Data button.
+
+## 6. Save the Output
+
+## 7. Check Results  make this proper
+
+# Option 2 (for ubuntu)
 
 ## 1. Clone the Repository
 To get started, clone the repository to your local machine:
