@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynatrace Problem Fetcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="datetime-local"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[type="text"]:focus,
+        input[type="datetime-local"]:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .hint {
+            font-size: 0.8em; /* Made the hint text smaller */
+            color: #666;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position the tooltip above the text */
+            left: 50%;
+            margin-left: -100px; 
+            opacity: 0; 
+            transition: opacity 0.3s; 
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible; 
+            opacity: 1; 
+        }
+
+        /* Style for the toggle button */
+        #toggleButton {
+          width: auto; /* Set width to auto for smaller size */
+          padding-left: 5px; /* Adjust padding for a smaller look */
+          padding-right: 5px; /* Adjust padding for a smaller look */
+          margin-bottom: 15px; /* Ensure consistent spacing */
+          display:inline-block; /* Allow it to sit inline with input */
+          vertical-align: middle; /* Align vertically with the input */
+          cursor:pointer; /* Change cursor to pointer */
+          background-color:#e7e7e7; /* Light background for contrast */
+          color:#333; /* Darker text for readability */
+          border-radius:.25rem; /* Rounded corners for consistency */
+          border:none; /* Remove default border */
+          transition:.3s ease; /* Smooth transition for hover effect */
+      }
+
+      #toggleButton:hover {
+          background-color:#d4d4d4; /* Change background on hover */
+      }
+    </style>
+    <script>
+            window.onload = function() {
+        const now = new Date();
+
+        // Ensure that the time is in UTC and formatted correctly
+        const formattedTime = now.toISOString().slice(0, 16); // Use toISOString for UTC format
+
+        // Set the 'from' and 'to' fields to the current UTC date-time
+        document.getElementById('from').value = formattedTime;
+        document.getElementById('to').value = formattedTime;
+
+        // Initialize token visibility
+        document.getElementById('token').type = 'password'; // Set initial type to password
+    };
+
+        function toggleTokenVisibility() {
+          const tokenInput = document.getElementById('token');
+          const toggleButton = document.getElementById('toggleButton');
+          if (tokenInput.type === 'password') {
+              tokenInput.type = 'text';
+              toggleButton.textContent = 'Hide';
+          } else {
+              tokenInput.type = 'password';
+              toggleButton.textContent = 'Show';
+          }
+      }
+    </script>
+</head>
+<body>
+    <h1>Dynatrace Problem Fetcher</h1>
+    <form action="/fetch" method="post">
+        <label for="url">API URL:</label>
+        <input type="text" id="url" name="url" required>
+        
+        <div class="hint">For Saas: <span class="tooltip">https://{your-environment-id}.live.dynatrace.com/api/v2/problems
+                <span class="tooltiptext">Example: https://abc12345.live.dynatrace.com/api/v2/problems</span>
+                </span><br>
+                For Managed: <span class="tooltip">https://{your-environment-dns}/e/{your-environment-id}/api/v2/problems
+                <span class="tooltiptext">Example: https://my.dynatrace.com/e/xyz123/api/v2/problems</span>
+                </span></div>
+
+        <label for="from">From Time:</label>
+        <input type="datetime-local" id="from" name="from" required>
+
+        <label for="to">To Time:</label>
+        <input type="datetime-local" id="to" name="to" required>
+
+        <label for="managementZone">Management Zone:</label>
+        <input type="text" id="managementZone" name="managementZone" required>
+        
+        <div class="hint">ManagementZone (e.g., dmsprod, dynatraceprod, or apm)</div>
+
+        <label for="token">API Token:</label>
+        <input type="text" id="token" name="token" required>
+        
+        <button type="button" id="toggleButton" onclick="toggleTokenVisibility()">Show</button>
+
+        <button type="submit">Fetch Data</button>
+    </form>
+</body>
+</html>
+
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynatrace Problem Fetcher</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 500px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="datetime-local"],
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        input[type="text"]:focus,
+        input[type="datetime-local"]:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .hint {
+            font-size: 0.8em; /* Made the hint text smaller */
+            color: #666;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%; /* Position the tooltip above the text */
+            left: 50%;
+            margin-left: -100px; 
+            opacity: 0; 
+            transition: opacity 0.3s; 
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible; 
+            opacity: 1; 
+        }
+
+        /* Style for the toggle button */
+        #toggleButton {
+          width: auto; /* Set width to auto for smaller size */
+          padding-left: 5px; /* Adjust padding for a smaller look */
+          padding-right: 5px; /* Adjust padding for a smaller look */
+          margin-bottom: 15px; /* Ensure consistent spacing */
+          display:inline-block; /* Allow it to sit inline with input */
+          vertical-align: middle; /* Align vertically with the input */
+          cursor:pointer; /* Change cursor to pointer */
+          background-color:#e7e7e7; /* Light background for contrast */
+          color:#333; /* Darker text for readability */
+          border-radius:.25rem; /* Rounded corners for consistency */
+          border:none; /* Remove default border */
+          transition:.3s ease; /* Smooth transition for hover effect */
+      }
+
+      #toggleButton:hover {
+          background-color:#d4d4d4; /* Change background on hover */
+      }
+    </style>
+    <script>
+        window.onload = function() {
+            const now = new Date();
+
+            // Ensure that the time is local and formatted correctly
+            const localTime = now.toLocaleString('en-GB', { timeZone: 'UTC' });
+            const formattedTime = localTime.replace(',', '').split(' ').join('T').slice(0, 16);
+
+            // Set the 'from' and 'to' fields to the current local date-time
+            document.getElementById('from').value = formattedTime;
+            document.getElementById('to').value = formattedTime;
+
+            // Initialize token visibility
+            document.getElementById('token').type = 'password'; // Set initial type to password
+        };
+
+        function toggleTokenVisibility() {
+          const tokenInput = document.getElementById('token');
+          const toggleButton = document.getElementById('toggleButton');
+          if (tokenInput.type === 'password') {
+              tokenInput.type = 'text';
+              toggleButton.textContent = 'Hide';
+          } else {
+              tokenInput.type = 'password';
+              toggleButton.textContent = 'Show';
+          }
+      }
+    </script>
+</head>
+<body>
+    <h1>Dynatrace Problem Fetcher</h1>
+    <form action="/fetch" method="post">
+        <label for="url">API URL:</label>
+        <input type="text" id="url" name="url" required>
+        
+        <div class="hint">For Saas: <span class="tooltip">https://{your-environment-id}.live.dynatrace.com/api/v2/problems
+                <span class="tooltiptext">Example: https://abc12345.live.dynatrace.com/api/v2/problems</span>
+                </span><br>
+                For Managed: <span class="tooltip">https://{your-environment-dns}/e/{your-environment-id}/api/v2/problems
+                <span class="tooltiptext">Example: https://my.dynatrace.com/e/xyz123/api/v2/problems</span>
+                </span></div>
+
+        <label for="from">From Time:</label>
+        <input type="datetime-local" id="from" name="from" required>
+
+        <label for="to">To Time:</label>
+        <input type="datetime-local" id="to" name="to" required>
+
+        <label for="managementZone">Management Zone:</label>
+        <input type="text" id="managementZone" name="managementZone" required>
+        
+        <div class="hint">ManagementZone (e.g., dmsprod, dynatraceprod, or apm)</div>
+
+        <label for="token">API Token:</label>
+        <input type="text" id="token" name="token" required>
+        
+        <button type="button" id="toggleButton" onclick="toggleTokenVisibility()">Show</button>
+
+        <button type="submit">Fetch Data</button>
+    </form>
+</body>
+</html> -->

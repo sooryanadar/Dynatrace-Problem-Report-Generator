@@ -1,0 +1,10 @@
+*.zip
+*.rar
+*.xlsx
+*.pptx
+*.docx
+*.ini
+*/.cache/
+*/Downloads/
+*/OneDrive/
+NTUSER.DAT*
