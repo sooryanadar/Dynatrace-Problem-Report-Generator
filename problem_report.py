@@ -127,10 +127,10 @@ def fetch_data():
         messagebox.showerror("Error", f"An error occurred: {str(e)}")
 
 
-# GUI Setup
+
 root = tk.Tk()
 root.title("Dynatrace Data Fetcher")
-root.geometry("600x450")
+root.geometry("600x500")
 
 style = ttk.Style()
 style.configure("TLabel", font=("Arial", 10), padding=5)
@@ -140,47 +140,51 @@ style.configure("TEntry", padding=5)
 frame = ttk.Frame(root, padding="10")
 frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
-# Labels and Inputs
 ttk.Label(frame, text="Dynatrace API URL:").grid(row=0, column=0, sticky=tk.W, padx=5, pady=5)
 url_entry = ttk.Entry(frame, width=50)
-url_entry.grid(row=0, column=1, pady=5)
-ttk.Label(frame, text="e.g., https://<your-environment-id>.live.dynatrace.com/api/v2/problems", font=("Arial", 8)).grid(row=1, column=1, sticky=tk.W)
+url_entry.grid(row=0, column=1, pady=5, sticky=tk.W)
 
-ttk.Label(frame, text="From Date:").grid(row=2, column=0, sticky=tk.W, padx=5, pady=5)
+ttk.Label(frame, text="For Saas (e.g., https://<your-environment-id>.live.dynatrace.com/api/v2/problems)", font=("Arial", 8)).grid(row=1, column=1, sticky=tk.W, pady=(5, 0))
+ttk.Label(frame, text="For Managed (e.g., https://<your-domain-name>/e/{your-environment-id}/api/v2/problems)", font=("Arial", 8)).grid(row=2, column=1, sticky=tk.W, pady=(0, 10))
+
+ttk.Label(frame, text="From Date:").grid(row=3, column=0, sticky=tk.W, padx=5, pady=5)
 from_date_picker = DateEntry(frame, width=20, date_pattern="yyyy-mm-dd")
-from_date_picker.grid(row=2, column=1, pady=5, sticky=tk.W)
+from_date_picker.grid(row=3, column=1, pady=5, sticky=tk.W)
 
-ttk.Label(frame, text="From Time:").grid(row=3, column=0, sticky=tk.W, padx=5, pady=5)
+ttk.Label(frame, text="From Time:").grid(row=4, column=0, sticky=tk.W, padx=5, pady=5)
 from_hour_combobox = ttk.Combobox(frame, values=[f"{i:02d}" for i in range(24)], width=5)
-from_hour_combobox.grid(row=3, column=1, sticky=tk.W, padx=(0, 5))
+from_hour_combobox.grid(row=4, column=1, sticky=tk.W, padx=(0, 5))
 from_hour_combobox.set("00")
 from_minute_combobox = ttk.Combobox(frame, values=[f"{i:02d}" for i in range(60)], width=5)
-from_minute_combobox.grid(row=3, column=1, padx=(60, 0), sticky=tk.W)
+from_minute_combobox.grid(row=4, column=1, padx=(60, 0), sticky=tk.W)
 from_minute_combobox.set("00")
 
-ttk.Label(frame, text="To Date:").grid(row=4, column=0, sticky=tk.W, padx=5, pady=5)
+ttk.Label(frame, text="To Date:").grid(row=5, column=0, sticky=tk.W, padx=5, pady=5)
 to_date_picker = DateEntry(frame, width=20, date_pattern="yyyy-mm-dd")
-to_date_picker.grid(row=4, column=1, pady=5, sticky=tk.W)
+to_date_picker.grid(row=5, column=1, pady=5, sticky=tk.W)
 
-ttk.Label(frame, text="To Time:").grid(row=5, column=0, sticky=tk.W, padx=5, pady=5)
+ttk.Label(frame, text="To Time:").grid(row=6, column=0, sticky=tk.W, padx=5, pady=5)
 to_hour_combobox = ttk.Combobox(frame, values=[f"{i:02d}" for i in range(24)], width=5)
-to_hour_combobox.grid(row=5, column=1, sticky=tk.W, padx=(0, 5))
+to_hour_combobox.grid(row=6, column=1, sticky=tk.W, padx=(0, 5))
 to_hour_combobox.set("23")
 to_minute_combobox = ttk.Combobox(frame, values=[f"{i:02d}" for i in range(60)], width=5)
-to_minute_combobox.grid(row=5, column=1, padx=(60, 0), sticky=tk.W)
+to_minute_combobox.grid(row=6, column=1, padx=(60, 0), sticky=tk.W)
 to_minute_combobox.set("59")
 
-ttk.Label(frame, text="Management Zone:").grid(row=6, column=0, sticky=tk.W, padx=5, pady=5)
+ttk.Label(frame, text="Management Zone:").grid(row=7, column=0, sticky=tk.W, padx=5, pady=5)
 management_zone_entry = ttk.Entry(frame, width=50)
-management_zone_entry.grid(row=6, column=1, pady=5)
-ttk.Label(frame, text="e.g., Production, Staging", font=("Arial", 8)).grid(row=7, column=1, sticky=tk.W)
+management_zone_entry.grid(row=7, column=1, pady=5, sticky=tk.W)
+ttk.Label(frame, text="e.g., Production, Staging", font=("Arial", 8)).grid(row=8, column=1, sticky=tk.W)
 
-ttk.Label(frame, text="API Token:").grid(row=8, column=0, sticky=tk.W, padx=5, pady=5)
+ttk.Label(frame, text="API Token:").grid(row=9, column=0, sticky=tk.W, padx=5, pady=5)
 token_entry = ttk.Entry(frame, width=50, show="*")
-token_entry.grid(row=8, column=1, pady=5)
-ttk.Label(frame, text="Enter your API Token here", font=("Arial", 8)).grid(row=9, column=1, sticky=tk.W)
+token_entry.grid(row=9, column=1, pady=5, sticky=tk.W)
+ttk.Label(frame, text="Enter your API Token here", font=("Arial", 8)).grid(row=10, column=1, sticky=tk.W)
 
-# Fetch Button
-ttk.Button(frame, text="Fetch Data", command=fetch_data).grid(row=10, column=0, columnspan=2, pady=20)
+
+ttk.Button(frame, text="Fetch Data", command=fetch_data).grid(row=11, column=0, columnspan=2, pady=20)
+
+author_label = tk.Label(root, text="Author: Soorya Muthuraj Nadar", font=("Arial", 4))
+author_label.grid(row=100, column=0, columnspan=2, pady=5, sticky=tk.W)
 
 root.mainloop()
