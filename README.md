@@ -1,6 +1,6 @@
-# Dynatrace Data Fetcher
+# Dynatrace Problem Report Fetcher
 
-This Python application allows you to fetch problem data from the Dynatrace API, process the data, and save it into an Excel file. The tool offers a graphical user interface (GUI) built with Tkinter to simplify the interaction.
+This Python application allows you to fetch problem data from the Dynatrace API, process the data, and save it into an Excel file. The tool offers a graphical user interface (GUI) builtin to simplify the interaction.
 
 ## Features
 
@@ -50,11 +50,11 @@ In the GUI, you will need to input the following details:
 
 Dynatrace API URL: Enter your Dynatrace environment API URL, for example:
 
-SaaS
+### SaaS
 ```bash
 https://<your-environment-id>.live.dynatrace.com/api/v2/problems
 ```
-Managed
+### Managed
 ```bash
 https://<your-domain-name>/e/{your-environment-id}/api/v2/problems
 ```
