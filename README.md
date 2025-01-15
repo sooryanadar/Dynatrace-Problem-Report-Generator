@@ -27,26 +27,26 @@ pip install requests pandas openpyxl tkcalendar
 
 ## Usage
 
-### 1. Clone the Repository
+## 1. Clone the Repository
 To get started, clone the repository to your local machine:
 
 ```bash
 git clone https://github.com/your-username/dynatrace-data-fetcher.git
 cd dynatrace-data-fetcher
 
-### 2. Install Dependencies
+## 2. Install Dependencies
 Make sure you have Python 3.x installed on your system. Then, install the required dependencies using pip:
 
 ```bash
 pip install -r requirements.txt
 
-### 3. Run the Application
+## 3. Run the Application
 Run the script using Python:
 
 ```bash
 python problem_report.py
 
-### 4. Input Data
+## 4. Input Data
 In the GUI, you will need to input the following details:
 
 Dynatrace API URL: Enter your Dynatrace environment API URL, for example:
@@ -64,10 +64,10 @@ Managed
     -> Management Zone: Input the management zone (e.g., Production, Staging).
     -> API Token: Enter your Dynatrace API token.
 
-### 5. Fetch Data
+## 5. Fetch Data
 
 Once you have filled in the necessary fields, click the Fetch Data button.
 
-### 6. Save the Output
+## 6. Save the Output
 
-### 7. Check Results
+## 7. Check Results
