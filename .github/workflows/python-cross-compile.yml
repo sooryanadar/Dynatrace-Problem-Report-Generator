@@ -1,0 +1,36 @@
+name: Python Cross-Compilation for Linux
+
+on:
+  push:
+    branches:
+      - main  # Trigger workflow on push to the main branch
+  workflow_dispatch:  # Allow manual runs
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y build-essential
+        pip install pyinstaller
+
+    - name: Build executable
+      run: |
+        pyinstaller --onefile problem_report.py
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: linux-executable
+        path: dist/problem_report  # Path to the built executable
