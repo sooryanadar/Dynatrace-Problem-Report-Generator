@@ -28,7 +28,7 @@ pip install requests pandas openpyxl tkcalendar
 
 ### Usage
 
-# Option 1 (for window)
+# Option 1 (for Windows)
 No need of python
 
 ## 1. Go to dist directory
