@@ -106,4 +106,4 @@ Once you have filled in the necessary fields, click the Fetch Data button.
 
 ## 6. Save the Output
 
-## 7. Check Results  make this proper
+## 7. Check Results
