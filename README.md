@@ -28,12 +28,12 @@ pip install requests pandas openpyxl tkcalendar
 
 ### Usage
 
-# Option 1 (for Windows)
+# For Windows
 No need of python
 
 ## 1. Go to dist directory
 
-## 2. Download the problem_report.exe file
+## 2. Download the ProblemReporter.exe file
 
 ## 3. Double-click and run the file
 
@@ -63,13 +63,13 @@ Once you have filled in the necessary fields, click the Fetch Data button.
 
 ## 7. Check Results  make this proper
 
-# Option 2 (for ubuntu)
+#  For Linux
 
 ## 1. Clone the Repository
 To get started, clone the repository to your local machine:
 ```bash
-git clone https://github.com/your-username/dynatrace-data-fetcher.git
-cd dynatrace-data-fetcher
+git clone https://github.com/your-username/Dynatrace-Problem-Report-Generator.git
+cd Dynatrace-Problem-Report-Generator
 ```
 ## 2. Install Dependencies
 Make sure you have Python 3.x installed on your system. Then, install the required dependencies using pip:
@@ -79,7 +79,7 @@ pip install -r requirements.txt
 ## 3. Run the Application
 Run the script using Python:
 ```bash
-python problem_report.py
+python ProblemReporter.py
 ```
 
 ## 4. Input Data
